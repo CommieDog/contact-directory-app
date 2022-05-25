@@ -22,18 +22,18 @@ export const postDb = async (name, home, cell, email)  => {
     const contactsDb = await openDB('conatcts', 1);
     const tx = contactsDb.transaction('conatcts', 'readwrite');
     const store = tx.objectStore('conatcts');
-    const request = store.add({ name, home, cell, email });
+    const request = store.add({ name, home_phone: home, cell_phone: cell, email });
     const result = await request;
     console.log('🚀 - data saved to the database', result);
 };
 
 // TODO: Complete the getDb() function below:
-export const getDb = async (id) => {
+export const getDb = async () => {
   console.log('GET from the database');
   const contactsDb = await openDB('conatcts', 1);
   const tx = contactsDb.transaction('conatcts', 'readonly');
   const store = tx.objectStore('conatcts');
-  const request = store.get(id);
+  const request = store.getAll();
   const result = await request;
   console.log('result.value', result);
   return result;
